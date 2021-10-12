@@ -7,10 +7,6 @@ config :chat, ChatWeb.Endpoint,
   secret_key_base: "+IEs4LZvi778jr8JstUFti9iaU32U6BPuH5kmAsbh66Wv7s9l7vhmmjHigDSjCfC",
   server: false
 
-# In test we don't send emails.
-config :chat, Chat.Mailer,
-  adapter: Swoosh.Adapters.Test
-
 # Print only warnings and errors during test
 config :logger, level: :warn
 

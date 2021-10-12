@@ -14,10 +14,7 @@ config :chat, ChatWeb.Endpoint,
   code_reloader: true,
   debug_errors: true,
   secret_key_base: "hRZcR1K4ugg9e/VPIQ/Mob0KMSdaXvAL+agQ6xSw5l5LQHy+VUdR9SS0+lPxRFfI",
-  watchers: [
-    # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
-    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]}
-  ]
+  watchers: []
 
 # ## SSL Support
 #

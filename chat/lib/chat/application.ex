@@ -8,14 +8,10 @@ defmodule Chat.Application do
   @impl true
   def start(_type, _args) do
     children = [
-      # Start the Telemetry supervisor
-      ChatWeb.Telemetry,
       # Start the PubSub system
       {Phoenix.PubSub, name: Chat.PubSub},
       # Start the Endpoint (http/https)
       ChatWeb.Endpoint
-      # Start a worker by calling: Chat.Worker.start_link(arg)
-      # {Chat.Worker, arg}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
