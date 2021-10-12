@@ -9,9 +9,6 @@ defmodule ChatWeb.Router do
 
   scope "/", ChatWeb do
     pipe_through :api
-    live "/chat", ChatLive, :index
-    live "/room:name", ChatroomLive, :index
-
-    get "/", PageController, :index
+    get "/send", MessageController, :send_message
   end
 end
