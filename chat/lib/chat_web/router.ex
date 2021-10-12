@@ -1,5 +1,7 @@
 defmodule ChatWeb.Router do
   use ChatWeb, :router
+  use Phoenix.Router
+  import Phoenix.LiveView.Router
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -16,6 +18,9 @@ defmodule ChatWeb.Router do
 
   scope "/", ChatWeb do
     pipe_through :browser
-    post "/send", MessageController, :send_message
+    live "/chat", ChatLive, :index
+    live "/room:name", ChatroomLive, :index
+
+    get "/", PageController, :index
   end
 end
