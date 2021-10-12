@@ -3,11 +3,11 @@ defmodule ChatWeb.ChatroomLive do
   require Logger
 
   @impl true
-  def mount(%{"id" => chatroom_id}, _session, socket) do
-    topic = "room:" <> chatroom_id
+  def mount(%{"name" => chatroom_name}, _session, socket) do
+    topic = "room:" <> chatroom_name
     ChatWeb.Endpoint.subscribe(topic)
     {:ok, assign(socket,
-      chatroom_id: chatroom_id,
+      chatroom_name: chatroom_name,
       topic: topic,
       messages: ["Welcome to OranguChat"],
       temporary_assigns: [messages: []])

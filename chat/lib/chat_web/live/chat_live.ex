@@ -2,6 +2,7 @@ defmodule ChatWeb.ChatLive do
   use ChatWeb, :live_view
   require Logger
 
+  @impl true
   def render(assigns) do
     ~H"""
     TEST
