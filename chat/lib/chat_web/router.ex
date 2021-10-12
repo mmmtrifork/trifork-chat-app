@@ -6,7 +6,7 @@ defmodule ChatWeb.Router do
     plug :fetch_session
     plug :fetch_live_flash
     plug :put_root_layout, {ChatWeb.LayoutView, :root}
-    plug :protect_from_forgery
+    # plug :protect_from_forgery # disable CSRF
     plug :put_secure_browser_headers
   end
 
@@ -16,8 +16,7 @@ defmodule ChatWeb.Router do
 
   scope "/", ChatWeb do
     pipe_through :browser
-
-    get "/", PageController, :index
+    post "/send", MessageController, :send_message
   end
 
   # Other scopes may use custom stacks.
