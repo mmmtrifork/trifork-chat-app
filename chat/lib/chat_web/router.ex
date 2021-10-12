@@ -9,6 +9,6 @@ defmodule ChatWeb.Router do
 
   scope "/", ChatWeb do
     pipe_through :api
-    get "/send", MessageController, :send_message
+    post "/send", MessageController, :send_message
   end
 end
