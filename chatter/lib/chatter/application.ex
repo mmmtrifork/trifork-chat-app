@@ -9,7 +9,7 @@ defmodule Chatter.Application do
   def start(_type, _args) do
     children = [
       # Start the Ecto repository
-      Chatter.Repo,
+      # Chatter.Repo,
       # Start the PubSub system
       {Phoenix.PubSub, name: Chatter.PubSub},
       # Start the Endpoint (http/https)
