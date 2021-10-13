@@ -1,5 +1,14 @@
 import Config
 
+# Configure your database
+config :chatter, Chatter.Repo,
+  username: "chat",
+  password: "password",
+  database: "chatter_prod",
+  hostname: "db",
+  show_sensitive_data_on_connection_error: true,
+  pool_size: 10
+
 # For production, don't forget to configure the url host
 # to something meaningful, Phoenix uses this information
 # when generating URLs.
@@ -10,11 +19,31 @@ import Config
 # which you should run after static files are built and
 # before starting your production server.
 config :chatter, ChatterWeb.Endpoint,
-  url: [host: "example.com", port: 80],
-  cache_static_manifest: "priv/static/cache_manifest.json"
+  http: [ip: {127, 0, 0, 1}, port: 4000],
+  check_origin: false,
+  code_reloader: true,
+  debug_errors: true,
+  secret_key_base: "HRr5+sUSdpYX8XTNnzEM+9KXPnMJfKNBRs46qLrJPoT7Bi65pfFkX2fOUejqwZXl",
+  watchers: [
+    # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
+    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]}
+  ]
+#  url: [host: "localhost", port: 8888]
 
 # Do not print debug messages in production
-config :logger, level: :info
+config :logger, level: :debug
+
+config :chatter, ChatterWeb.Endpoint,
+       live_reload: [
+         patterns: [
+           ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
+           ~r"priv/gettext/.*(po)$",
+           ~r"lib/chatter_web/(live|views)/.*(ex)$",
+           ~r"lib/chatter_web/templates/.*(eex)$"
+         ]
+       ]
+
+config :phoenix, :plug_init_mode, :runtime
 
 # ## SSL Support
 #

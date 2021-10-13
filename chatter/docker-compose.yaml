@@ -1,0 +1,19 @@
+version: '3.1'
+
+services:
+  chatter:
+    image: trichat
+    restart: always
+    environment:
+      DATABASE_URL: ecto://chat:password@db/chat
+    ports:
+      - 4000:4000
+
+  db:
+    image: postgres:10
+    restart: always
+    environment:
+      POSTGRES_USER: chat
+      POSTGRES_PASSWORD: password
+    ports:
+      - 5432:5432
