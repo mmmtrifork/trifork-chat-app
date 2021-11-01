@@ -1,17 +1,42 @@
-# Extend from the official Elixir image
-FROM elixir:latest
+# # Extend from the official Elixir image
+# FROM elixir:latest
 
-# Create app directory and copy the Elixir projects into it
-RUN mkdir /app
-COPY . /app
-WORKDIR /app
+# # Create app directory and copy the Elixir projects into it
+# RUN mkdir /app
+# COPY . /app
+# WORKDIR /app
 
-# Install hex package manager
-# By using --force, we don’t need to type “Y” to confirm the installation
-RUN mix local.hex --force
+# # Install hex package manager
+# # By using --force, we don’t need to type “Y” to confirm the installation
+# RUN mix local.hex --force
 
-# Compile the project
-RUN mix deps.get
-RUN mix do compile
+# # Compile the project
+# RUN mix deps.get
+# RUN mix do compile
 
-CMD ["/app/entrypoint.sh"]
+# CMD ["/app/entrypoint.sh"]
+
+FROM bitwalker/alpine-elixir-phoenix:latest
+
+# Set mix env and ports
+ENV MIX_ENV=prod \
+    PORT=$PORT
+
+# Cache elixir deps
+ADD mix.exs mix.lock ./
+RUN mix do deps.get, deps.compile
+
+# Same with npm deps
+ADD assets/package.json assets/
+RUN cd assets && \
+    npm install
+
+ADD . .
+
+# Run frontend build, compile, and digest assets
+RUN cd assets/ && \
+    npm run deploy && \
+    cd - && \
+    mix do compile, phx.digest
+
+CMD ["mix", "phx.server"]
