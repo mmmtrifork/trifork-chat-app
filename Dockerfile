@@ -26,7 +26,7 @@ ENV MIX_ENV=prod \
 # ADD mix.exs mix.lock ./
 # RUN mix do deps.get, deps.compile
 
-# ADD . .
+ADD . .
 
 # # Run frontend build, compile, and digest assets
 # RUN mix do compile, phx.digest
