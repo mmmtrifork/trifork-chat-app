@@ -23,12 +23,17 @@ ENV MIX_ENV=prod \
     PORT=4000
 
 # Cache elixir deps
-ADD mix.exs mix.lock ./
-RUN mix do deps.get, deps.compile
+# ADD mix.exs mix.lock ./
+# RUN mix do deps.get, deps.compile
 
-ADD . .
+# ADD . .
 
-# Run frontend build, compile, and digest assets
-RUN mix do compile, phx.digest
+# # Run frontend build, compile, and digest assets
+# RUN mix do compile, phx.digest
+RUN mix local.hex --force
+
+# Compile the project
+RUN mix deps.get
+RUN mix do compile
 
 CMD ["mix", "phx.server"]
